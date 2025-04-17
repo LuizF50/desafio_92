@@ -1,0 +1,223 @@
+// Variáveis de cores
+$space-black: #0a0a0a;
+$space-gray: #1a1a1a;
+$light-gray: #e0e0e0;
+$white: #ffffff;
+$neon-glow: rgba(255, 255, 255, 0.8);
+
+// Configurações base
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    background: $space-black;
+    color: $light-gray;
+    overflow: hidden;
+    position: relative;
+    // Adicionando imagem de background diretamente no body
+    background-image: url('./images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($space-black, 0.7); // Sobreposição escura para legibilidade
+        z-index: -1;
+    }
+}
+
+// Removendo classe de background-image já que agora está no body
+// .background-image classe foi removida
+
+.space-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.calculator-container {
+    background: rgba($space-gray, 0.9);
+    padding: 2rem;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba($light-gray, 0.1);
+
+    h1 {
+        color: $white;
+        text-align: center;
+        margin-bottom: 0.5rem;
+        font-size: 1.8rem;
+    }
+
+    .description {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    input {
+        width: 100%;
+        padding: 0.8rem;
+        border-radius: 8px;
+        border: 1px solid rgba($light-gray, 0.3);
+        background: rgba($space-black, 0.7);
+        color: $white;
+        font-size: 1rem;
+
+        &:focus {
+            outline: none;
+            border-color: $neon-glow;
+            box-shadow: 0 0 10px rgba($white, 0.2);
+        }
+    }
+}
+
+.glow-on-hover {
+    width: 100%;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: $white;
+    background: $space-gray;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s;
+
+    &:before {
+        content: '';
+        background: linear-gradient(45deg,
+                #f0f0f0, #c0c0c0, #a0a0a0, #808080,
+                #606060, #808080, #a0a0a0, #c0c0c0, #f0f0f0);
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-size: 400%;
+        z-index: -1;
+        filter: blur(5px);
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        animation: glowing 20s linear infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        border-radius: 10px;
+    }
+
+    &:active {
+        color: $space-gray;
+    }
+
+    &:active:after {
+        background: transparent;
+    }
+
+    &:hover:before {
+        opacity: 1;
+    }
+
+    &:after {
+        z-index: -1;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: $space-gray;
+        left: 0;
+        top: 0;
+        border-radius: 10px;
+    }
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.result-container {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba($space-black, 0.5);
+    border-radius: 10px;
+    border: 1px solid rgba($light-gray, 0.1);
+
+    p {
+        margin: 0;
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    .result-value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: $white;
+        margin: 0.5rem 0;
+    }
+
+    .result-unit {
+        font-size: 0.8rem;
+        opacity: 0.6;
+    }
+
+    .result-extenso {
+        font-size: 0.7rem;
+        opacity: 0.7;
+        margin-top: 0.5rem;
+        line-height: 1.4;
+        max-width: 100%;
+        word-wrap: break-word;
+    }
+}
+
+@media (max-width: 600px) {
+    .calculator-container {
+        padding: 1.5rem;
+
+        h1 {
+            font-size: 1.5rem;
+        }
+    }
+
+    .result-value {
+        font-size: 2rem !important;
+    }
+}
